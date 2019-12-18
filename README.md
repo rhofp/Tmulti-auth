@@ -65,13 +65,7 @@ Para usar la plantilla se deberán seguir los siguientes pasos:
    npm install && npm run dev
    ```
 
-4. Crear una llave del proyecto.
-
-   ```shell
-   php artisan generate:key
-   ```
-
-5. Configurar una la conexión con una base de datos.
+4. Configurar una la conexión con una base de datos.
 
    Se puede configurar cualquier base de datos soportada por Laravel, como ejemplo sencillo se presenta la conexión con `sqlite`
 
@@ -126,7 +120,13 @@ Para usar la plantilla se deberán seguir los siguientes pasos:
    MIX_PUSHER_APP_KEY="${PUSHER_APP_KEY}"
    MIX_PUSHER_APP_CLUSTER="${PUSHER_APP_CLUSTER}"
    ```
+   
+5. Crear una llave del proyecto.
 
+   ```shell
+   php artisan key:generate
+   ```
+   
 6. Generar las migraciones del proyecto.
 
    ```shell
@@ -139,6 +139,22 @@ El uso de este proyecto se puede inferir con tal solo revisar el archivo `routes
 
 * Se usa el sistema de autentificación que laravel tiene semi-integrado. Dicho sistema permanece intacto.
 
+* Se debe crear un usuario administrador para poder probar la funcionalidad, esto se puede hacer en la terminal provista por laravel (tinker).
+
+  ```php
+  php artisan tinker
+  ========================================================
+  Psy Shell v0.9.12 (PHP 7.3.11 — cli) by Justin Hileman
+  $admin = new App\Models\Admin
+  $admin -> name = 'admin'
+  $admin -> lastname = 'root'  
+  $admin -> email = 'admin@example.com' 
+  $admin -> password = Hash::make('rootadmin')    
+  $admin -> save()    
+  ```
+
+* Iniciar el servidor `php artisan serve`
+
 * Se adiciona un sistema de logeo para usuarios administradores `127.0.0.1:8000/admin/login`
 
   Al colocar correctamente las credenciales del usuario administrador se le redirige a `127.0.0.1:8000/admin`.
@@ -149,7 +165,7 @@ El uso de este proyecto se puede inferir con tal solo revisar el archivo `routes
 
   ```php
   Route::prefix('admin')->group(function() {
-      Route::get('/login','Auth\AdminLoginController@showLoginForm')-		>name('admin.login');
+      Route::get('/login','Auth\AdminLoginController@showLoginForm')->name('admin.login');
       Route::post('/login', 'Auth\AdminLoginController@login')->name('admin.login.submit');
       Route::get('logout/', 'Auth\AdminLoginController@logout')->name('admin.logout');
       Route::get('/', 'AdminController@index')->name('admin.dashboard');
@@ -174,7 +190,7 @@ The Laravel framework is open-sourced software licensed under the [MIT license](
 
 ## Credits
 
-Este template no hubiera sido posible sin lo siguiente tutoriales
+Este template no hubiera sido posible sin los siguientes tutoriales
 
 * https://www.codermen.com/blog/123/how-to-make-multi-auth-in-laravel-6
 * https://github.com/DevMarketer/multiauth_tutorial
