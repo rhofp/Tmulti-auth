@@ -75,10 +75,12 @@ Para usar la plantilla se deberán seguir los siguientes pasos:
    touch database/database.sqlite
    ```
 
-   Configurar el archivo `.env`
+   <p text-align="center">
+    <img src="img/cover.png">
+   </p>
 
    Este es mi archivo .env el cual nunca se sube al repositorio porque es un archivo de configuración crítico.
-
+   
    ```shell
    APP_NAME=Laravel
    APP_ENV=local
